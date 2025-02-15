@@ -6,6 +6,9 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
 
+  //git add . || git add <file>
+  //git commit -m "comment"
+  //git push
   return (
     <>
       <div>
