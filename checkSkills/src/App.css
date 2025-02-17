@@ -1,42 +1,66 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.title {
+  text-align: center;
+  border: 1px solid black;
+}
+
+.main {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.footer {
+  text-align: center;
+  border: 1px solid black;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main {
+  display: flex;
+}
+.sideBar {
+  flex: 1;
+  border: 1px solid black;
+}
+.sideBar button,
+.sideBar input {
+  width: 90%;
+  height: 100px;
+  margin: 10px 0;
+  background-color: violet;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+.content {
+  flex: 9;
+  border: 1px solid black;
+}
+.content div {
+  border: 1px solid black;
+  margin: 10px 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+table{
+  width: 100%;
+}
+#gradeTable{
+  font-size: 1.5rem;
+}
+#gradeTable input{
+  width: 90%;
+  height: 50px;
 }
 
-.card {
-  padding: 2em;
+#jsonUsers{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+#inputLottery{
+  height: 50px;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
 }
 
-.read-the-docs {
-  color: #888;
+hr{
+  border: 10px solid black;
+}
+#form div , #submit{
+  border: 0px solid black;
 }
