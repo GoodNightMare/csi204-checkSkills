@@ -1,8 +1,8 @@
-# React + Vite
+# หัวข้อใหญ่ (H1)
+## หัวข้อรอง (H2)
+### หัวข้อย่อย (H3)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ข้อความธรรมดา  
+**ข้อความหนา**  
+*ข้อความเอียง*  
+~~ข้อความขีดฆ่า~~  
