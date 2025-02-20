@@ -14,8 +14,8 @@ function App() {
 
     //แปลงชนิดข้ิอมูล
 
-    console.log(parseInt("10"));
-    console.log(parseFloat("3.14"));
+    console.log(parseInt("10"), typeof parseInt("10"));
+    console.log(parseFloat("3.14"), typeof parseFloat("3.14"));
     const toString = int.toString();
     console.log(toString, typeof toString);
   };
@@ -44,8 +44,8 @@ function App() {
     console.log(object.push({ name: "night", age: 20, city: "thailand" }));
     console.log(object.push({ name: "night", age: 20, city: "thailand" }));
     console.log(object[3].name, object[3].age, object[3].city);
-    console.log(object.shift()); //ลบหน้า
-    console.log((object[1].name = "tim"));
+    //console.log(object.shift()); //ลบหน้า
+    //console.log((object[1].name = "tim"));
     console.table(object);
 
     const uniquePeople = Array.from(
@@ -54,7 +54,7 @@ function App() {
     console.table(uniquePeople);
   };
 
-  const [bgColor, setBgColor] = useState("white");
+  const [bgColor, setBgColor] = useState("red");
   const changeColorBackground = () => {
     console.log(bgColor);
     setBgColor(bgColor === "red" ? "white" : "red");
@@ -115,12 +115,14 @@ function App() {
     return fibonacci(n - 1) + fibonacci(n - 2);
   };
 
-  try {
-    let result = 10 / a; // โค้ดที่อาจเกิดข้อผิดพลาด
-    console.log(result);
-  } catch (error) {
-    console.log("เกิดข้อผิดพลาด:", error.message);
-  }
+  const devideA = () => {
+    try {
+      let result = 10 / a; // โค้ดที่อาจเกิดข้อผิดพลาด
+      console.log(result);
+    } catch (error) {
+      console.log("เกิดข้อผิดพลาด:", error.message);
+    }
+  };
 
   const [calGrade, setCalGrade] = useState([
     { sub: "CSI101", credit: 3, score: 0, grade: "-" },
@@ -238,7 +240,6 @@ function App() {
   // บันทึกข้อมูลลง LocalStorage ทุกครั้งที่ tasks เปลี่ยน
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
-    console.log("LocalStorage Updated:", localStorage.getItem("tasks"));
   }, [tasks]);
 
   const addTask = () => {
@@ -293,6 +294,8 @@ function App() {
   //git pull
   //git checkout -b [name_of_your_new_branch]
   //git push origin [name_of_your_new_branch]
+  //git switch [name_of_your_new_branch]
+  //git merge [name_of_your_new_branch]
   //git branch -a
   return (
     <>
@@ -330,6 +333,7 @@ function App() {
             <div className="var-obj">
               <button onClick={() => variable()}>variable</button>
               <button onClick={() => objectArray()}>object array</button>
+              <button onClick={() => devideA()}>try catch</button>
             </div>
             <hr />
             <div>
@@ -438,8 +442,7 @@ function App() {
                 ))}
               </div>
               <button onClick={() => pushData()}>เพิ่มข้อมูล 100 ตัว</button>
-              &nbsp;
-              &nbsp;
+              &nbsp; &nbsp;
               <button onClick={() => bubbleSortFunc()}>เรียงข้อมูล</button>
             </div>
             <hr />
@@ -573,13 +576,31 @@ function App() {
                 </button>
               </div>
               <div id="app-todos">
+                {tasks.map((task, index) => (
+                  <div key={index} className="todos" style={{ border: "0px" }}>
+                    <div
+                      id="checkBox"
+                      style={{
+                        backgroundColor: task.completed
+                          ? "rgb(146, 226, 146)"
+                          : "",
+                      }}
+                      onClick={() => toggleComplete(index)}
+                    >
+                      {task.completed ? "✅" : "❌"}
+                    </div>
+                    <p
+                      style={{
+                        fontSize: "1.5rem",
+                        textDecoration: task.completed
+                          ? "line-through"
+                          : "none",
+                      }}
+                    >
+                      {task.text}
+                    </p>
 
-              {tasks.map((task, index) => (
-                <div key={index} className="todos" style={{ border: "0px" }}>
-                  <div id="checkBox" style={{backgroundColor: task.completed ? "rgb(146, 226, 146)" : ""}} onClick={() => toggleComplete(index)}>{task.completed ? "✅" : "❌"}</div>
-                  <p style={{ fontSize: "1.5rem" , textDecoration: task.completed ? "line-through" : "none"}}>{task.text}</p>
-
-                  {/* <button
+                    {/* <button
                       onClick={() => toggleComplete(index)}
                       style={{
                         backgroundColor: task.completed ? "red" : "green",
@@ -588,9 +609,11 @@ function App() {
                         >
                         {task.completed ? "ยกเลิก" : "ทำเสร็จแล้ว"}
                         </button> */}
-                  <button id="delete" onClick={() => removeTask(index)}>ลบ</button>
-                </div>
-              ))}
+                    <button id="delete" onClick={() => removeTask(index)}>
+                      ลบ
+                    </button>
+                  </div>
+                ))}
               </div>
             </div>
             <hr />
