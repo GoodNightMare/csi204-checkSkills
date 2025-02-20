@@ -8,51 +8,57 @@ function App() {
   const string = "Hello world 204";
   const int = 204;
   const bool = true;
-  console.log(string, int, bool);
-  console.log(typeof string, typeof int, typeof bool);
+  const variable = () => {
+    console.log(string, int, bool);
+    console.log(typeof string, typeof int, typeof bool);
 
-  //แปลงชนิดข้ิอมูล
+    //แปลงชนิดข้ิอมูล
 
-  console.log(parseInt("10"));
-  console.log(parseFloat("3.14"));
-  const toString = int.toString();
-  console.log(toString);
+    console.log(parseInt("10"));
+    console.log(parseFloat("3.14"));
+    const toString = int.toString();
+    console.log(toString, typeof toString);
+  };
 
   // tuple object array
-  const object = [
-    {
-      name: "John",
-      age: 30,
-      city: "New York",
-    },
-    {
-      name: "Jane",
-      age: 25,
-      city: "San Francisco",
-    },
-    {
-      name: "Bob",
-      age: 40,
-      city: "Los Angeles",
-    },
-  ];
+  const objectArray = () => {
+    let object = [
+      {
+        name: "John",
+        age: 30,
+        city: "New York",
+      },
+      {
+        name: "Jane",
+        age: 25,
+        city: "San Francisco",
+      },
+      {
+        name: "Bob",
+        age: 40,
+        city: "Los Angeles",
+      },
+    ];
 
-  console.log(object.push({ name: "night", age: 20, city: "thailand" }));
-  console.log(object.push({ name: "night", age: 20, city: "thailand" }));
-  console.log(object.push({ name: "night", age: 20, city: "thailand" }));
-  console.log(object[3].name, object[3].age, object[3].city);
-  console.log(object.shift()); //ลบหน้า
-  console.log((object[1].name = "tim"));
-  console.table(object);
+    console.log(object.push({ name: "night", age: 20, city: "thailand" }));
+    console.log(object.push({ name: "night", age: 20, city: "thailand" }));
+    console.log(object.push({ name: "night", age: 20, city: "thailand" }));
+    console.log(object[3].name, object[3].age, object[3].city);
+    console.log(object.shift()); //ลบหน้า
+    console.log((object[1].name = "tim"));
+    console.table(object);
 
-  const uniquePeople = Array.from(
-    new Set(object.map(JSON.stringify)) // แปลงเป็น string ก่อน // Set ไม่เอาค่าซ้ำ
-  ).map(JSON.parse); // แปลงกลับเป็น object
-  console.table(uniquePeople);
+    const uniquePeople = Array.from(
+      new Set(object.map(JSON.stringify)) // แปลงเป็น string ก่อน // Set ไม่เอาค่าซ้ำ
+    ).map(JSON.parse); // แปลงกลับเป็น object
+    console.table(uniquePeople);
+  };
 
   const [bgColor, setBgColor] = useState("white");
   const changeColorBackground = () => {
+    console.log(bgColor);
     setBgColor(bgColor === "red" ? "white" : "red");
+    document.body.style.backgroundColor = bgColor;
   };
 
   const [isHidden, setIsHidden] = useState(false);
@@ -61,20 +67,21 @@ function App() {
   };
 
   const ageCal = () => {
-    const age = document.getElementById("age").value;
+    const age = Math.round(document.getElementById("age").value);
     const ageOutput = document.getElementById("ageOutput");
+    const oddEven = document.getElementById("oddEven");
     if (age <= 18) {
       ageOutput.innerHTML = "เด็ก";
-    } else if (age > 18 && age < 50) {
+    } else if (age > 18 && age <= 50) {
       ageOutput.innerHTML = "วัยรุ่น";
-    } else if (age <= 50) {
+    } else if (age > 50) {
       ageOutput.innerHTML = "ผู้ใหญ่";
     }
 
     if (age % 2 === 0) {
-      ageOutput.innerHTML += ", เป็นเลขคู่";
+      oddEven.innerHTML = "เป็นเลขคู่";
     } else {
-      ageOutput.innerHTML += ", เป็นเลขคี่";
+      oddEven.innerHTML = "เป็นเลขคี่";
     }
   };
 
@@ -107,6 +114,13 @@ function App() {
     if (n == 1) return 1;
     return fibonacci(n - 1) + fibonacci(n - 2);
   };
+
+  try {
+    let result = 10 / a; // โค้ดที่อาจเกิดข้อผิดพลาด
+    console.log(result);
+  } catch (error) {
+    console.log("เกิดข้อผิดพลาด:", error.message);
+  }
 
   const [calGrade, setCalGrade] = useState([
     { sub: "CSI101", credit: 3, score: 0, grade: "-" },
@@ -185,13 +199,101 @@ function App() {
     console.log(input.value, parseInt(lottery));
   };
 
-  //อานและเขียนไฟล JSON โดยใช json.loads() และ json.dumps()
-  // เขียนโปรแกรม Bubble Sort หรือ Selection Sort
-  //  ใช JavaScript สราง Array มีขนาด 100 ชอง Random ตัวเลขแลวเรียงลำดับขอมูล
+  const [bubbleSort, setBubbleSort] = useState([]);
+  const pushData = () => {
+    const array = [];
+    for (let i = 0; i < 100; i++) {
+      array.push(Math.round(Math.random() * 1000));
+    }
+    setBubbleSort((prev) => [...prev, ...array]);
+    console.log(array);
+  };
+
+  const bubbleSortFunc = () => {
+    let sortDummy = [...bubbleSort];
+    let temp;
+    let size = bubbleSort.length;
+    for (let i = 0; i < size - 1; i++) {
+      for (let j = 0; j < size - i - 1; j++) {
+        // ตำแหน่ง 1 - 2
+        if (sortDummy[j] > sortDummy[j + 1]) {
+          // 10 - 4
+          temp = sortDummy[j]; // temp = 10
+          sortDummy[j] = sortDummy[j + 1]; // ตำแหน่ง1 = 4
+          sortDummy[j + 1] = temp; // ตำแหน่ง2 = 10
+        }
+      }
+    }
+    setBubbleSort(sortDummy);
+    console.log(bubbleSort);
+  };
+
+  //----------------------------------------------------------------------------
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+  const [input, setInput] = useState("");
+
+  // บันทึกข้อมูลลง LocalStorage ทุกครั้งที่ tasks เปลี่ยน
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    console.log("LocalStorage Updated:", localStorage.getItem("tasks"));
+  }, [tasks]);
+
+  const addTask = () => {
+    if (input.trim() !== "") {
+      setTasks([...tasks, { text: input, completed: false }]);
+      setInput("");
+    }
+  };
+
+  const toggleComplete = (index) => {
+    const newTasks = tasks.map((task, i) =>
+      i === index ? { ...task, completed: !task.completed } : task
+    );
+    setTasks(newTasks);
+  };
+
+  const removeTask = (index) => {
+    const newTasks = tasks.filter((_, i) => i !== index);
+    setTasks(newTasks);
+  };
+
+  //---------------------------------------------------------------
+  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState([]); // ใช้ state ใหม่สำหรับข้อมูลใหม่
+
+  useEffect(() => {
+    if (newData.length === 0) return; // ถ้าไม่มีข้อมูลใหม่ให้ return
+
+    fetch("http://localhost:3000/update-json", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newData), // ส่งเฉพาะข้อมูลใหม่
+    })
+      .then((res) => res.text())
+      .then((response) => {
+        console.log(response);
+        setData((prevData) => [...prevData, ...newData]); // เพิ่มข้อมูลใหม่ลงใน data หลังส่งไปแล้ว
+        setNewData([]); // เคลียร์ newData หลังจากส่งแล้ว
+      });
+  }, [newData]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/get-json")
+      .then((res) => res.json())
+      .then((response) => setData(response));
+  }, []);
 
   //git add . || git add <file>
   //git commit -m "comment"
   //git push
+
+  //git pull
+  //git checkout -b [name_of_your_new_branch]
+  //git push origin [name_of_your_new_branch]
+  //git branch -a
   return (
     <>
       <div id="app204">
@@ -222,7 +324,14 @@ function App() {
           <div className="content">
             <h1>นายนนท์ธีร์ ปานะถึก</h1>
             <h2>รหัสนักศึกษา : 66073169</h2>
+            <hr />
             {isHidden && <h1>Hidden</h1>}
+            <hr />
+            <div className="var-obj">
+              <button onClick={() => variable()}>variable</button>
+              <button onClick={() => objectArray()}>object array</button>
+            </div>
+            <hr />
             <div>
               <form action="" id="form">
                 <div>
@@ -253,6 +362,7 @@ function App() {
                 </button>
               </div>
             </div>
+            <hr />
 
             {/*
             
@@ -285,10 +395,16 @@ function App() {
             </div>
             <hr />
             <div>
+              <p>{">= 18"} = เด็ก</p>
+              <p>{"< 18 && >= 50"} = วัยรุ่น</p>
+              <p>{"> 50"} = ผู้ใหญ่</p>
+            </div>
+            <div>
               <label htmlFor="">AGE : </label>
               <input type="number" id="age" />
               <button onClick={() => ageCal()}>Age</button>
               <h1 id="ageOutput"></h1>
+              <h1 id="oddEven"></h1>
             </div>
             <hr />
             <div>
@@ -310,6 +426,21 @@ function App() {
               <input type="text" id="inputWhileloop" />
               <button onClick={() => whileLoop()}>Click</button>
               <h1 id="outputWhileloop"></h1>
+            </div>
+            <hr />
+            <div>
+              <h1>Bubble Sort</h1>
+              <div className="bubbleSort">
+                {bubbleSort.map((item, index) => (
+                  <div key={index}>
+                    <p>{item}</p>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => pushData()}>เพิ่มข้อมูล 100 ตัว</button>
+              &nbsp;
+              &nbsp;
+              <button onClick={() => bubbleSortFunc()}>เรียงข้อมูล</button>
             </div>
             <hr />
             <div>
@@ -423,6 +554,57 @@ function App() {
                 onClick={() => lotteryRandom()}
               >
                 สุ่ม
+              </button>
+            </div>
+            <hr />
+
+            <div>
+              <h2>To-Do List</h2>
+              <div style={{ border: "0px" }}>
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="เพิ่มงานใหม่..."
+                  style={{ fontSize: "1.5rem" }}
+                />
+                <button onClick={addTask} style={{ fontSize: "1.5rem" }}>
+                  เพิ่ม
+                </button>
+              </div>
+              <div id="app-todos">
+
+              {tasks.map((task, index) => (
+                <div key={index} className="todos" style={{ border: "0px" }}>
+                  <div id="checkBox" style={{backgroundColor: task.completed ? "rgb(146, 226, 146)" : ""}} onClick={() => toggleComplete(index)}>{task.completed ? "✅" : "❌"}</div>
+                  <p style={{ fontSize: "1.5rem" , textDecoration: task.completed ? "line-through" : "none"}}>{task.text}</p>
+
+                  {/* <button
+                      onClick={() => toggleComplete(index)}
+                      style={{
+                        backgroundColor: task.completed ? "red" : "green",
+                        fontSize: "1.5rem",
+                        }}
+                        >
+                        {task.completed ? "ยกเลิก" : "ทำเสร็จแล้ว"}
+                        </button> */}
+                  <button id="delete" onClick={() => removeTask(index)}>ลบ</button>
+                </div>
+              ))}
+              </div>
+            </div>
+            <hr />
+
+            <div>
+              <h2>แสดงข้อมูลจาก JSON</h2>
+              <pre style={{ fontSize: "1.5rem" }}>
+                {JSON.stringify(data, null, 2)}
+              </pre>
+              <button onClick={() => setNewData([{ name: "Alice", age: 25 }])}>
+                เพิ่ม Alice
+              </button>
+              <button onClick={() => setNewData([{ name: "Bob", age: 30 }])}>
+                เพิ่ม Bob
               </button>
             </div>
           </div>
